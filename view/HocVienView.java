@@ -171,6 +171,7 @@ public class HocVienView extends javax.swing.JFrame {
                 "ID", "Họ tên", "Ngày sinh", "Giới tính", "Số điện thoại", "Địa chỉ", "Tình trạng"
             }
         ));
+        jTableHocVien.setRowHeight(50);
         jTableHocVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableHocVienMouseClicked(evt);
