@@ -64,9 +64,9 @@ public class HocVienDAOImpl implements HocVienDAO {
         try {
             list = new ArrayList<HocVien>();
             conn = Data.getData(); // Lấy kết nối
-            String sql = "SELECT * FROM hoc_vien WHERE ho_ten = ?";
+            String sql = "SELECT * FROM hoc_vien WHERE ho_ten LIKE ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, hoten); // Gắn giá trị tham số
+            stmt.setString(1, "%" + hoten + "%"); // Gắn giá trị tham số
 
             rs = stmt.executeQuery(); // Thực thi truy vấn
 
