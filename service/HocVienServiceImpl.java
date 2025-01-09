@@ -28,7 +28,7 @@ public class HocVienServiceImpl implements HocVienService {
 
     @Override
     public List<HocVien> findName(String hoten) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return hocVienDao.findName(hoten);
     }
 
     @Override
