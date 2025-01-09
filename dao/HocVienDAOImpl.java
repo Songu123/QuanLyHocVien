@@ -56,11 +56,55 @@ public class HocVienDAOImpl implements HocVienDAO {
 
     @Override
     public List<HocVien> findName(String hoten) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        HocVien hocVien = null; // Đặt ban đầu là null
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<HocVien> list = null;
+        try {
+            list = new ArrayList<HocVien>();
+            conn = Data.getData(); // Lấy kết nối
+            String sql = "SELECT * FROM hoc_vien WHERE ho_ten = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, hoten); // Gắn giá trị tham số
+
+            rs = stmt.executeQuery(); // Thực thi truy vấn
+
+            while (rs.next()) { // Nếu có kết quả
+                hocVien = new HocVien(); // Tạo đối tượng HocVien
+                hocVien.setMa_hoc_vien(rs.getInt("ma_hoc_vien"));
+                hocVien.setHo_ten(rs.getString("ho_ten"));
+                hocVien.setSo_dien_thoai(rs.getString("so_dien_thoai"));
+                hocVien.setDia_chi(rs.getString("dia_chi"));
+                hocVien.setNgay_sinh(rs.getDate("ngay_sinh"));
+                hocVien.setGioi_tinh(rs.getBoolean("gioi_tinh"));
+                hocVien.setTinh_trang(rs.getBoolean("tinh_trang"));
+                list.add(hocVien);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // In lỗi ra console
+        } finally {
+            // Đảm bảo đóng tài nguyên
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return list; // Trả về null nếu không tìm thấy học viên
     }
 
     @Override
-    public boolean insert(HocVien hv) {
+    public boolean insert(HocVien hv
+    ) {
         Connection conn = Data.getData();
         try {
             // get data from table  
@@ -89,7 +133,8 @@ public class HocVienDAOImpl implements HocVienDAO {
     }
 
     @Override
-    public boolean update(HocVien hv) {
+    public boolean update(HocVien hv
+    ) {
         Connection conn = Data.getData();
         try {
             // get data from table  
@@ -116,8 +161,9 @@ public class HocVienDAOImpl implements HocVienDAO {
     }
 
     @Override
-    public boolean delete(HocVien hv) {
-         Connection conn = Data.getData();
+    public boolean delete(HocVien hv
+    ) {
+        Connection conn = Data.getData();
         try {
             conn = Data.getData(); // Lấy kết nối
             String sql = "DELETE FROM hoc_vien WHERE ma_hoc_vien = ?";
@@ -133,7 +179,8 @@ public class HocVienDAOImpl implements HocVienDAO {
     }
 
     @Override
-    public HocVien findHocVien(int id) {
+    public HocVien findHocVien(int id
+    ) {
         HocVien hocVien = null; // Đặt ban đầu là null
         Connection conn = null;
         PreparedStatement stmt = null;
